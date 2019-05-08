@@ -58,7 +58,7 @@ for folder in natsorted(folderdict):
     mol = None
     for topo in topoformats:
         if 'topo'+topo in folderdict[folder]:
-            mol = Molecule(folderdict[folder]['topo'+topo], validateElements=False)
+            mol = Molecule(folderdict[folder]['topo'+topo])
             break
     if mol is None:
         print('No topology found in {}'.format(folder))
