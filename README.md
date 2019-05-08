@@ -1,6 +1,14 @@
 A collection of utility scripts for typical MD stuff to ease my life.
 
 # Install
+You can install the utilities directly to system python if you have python 3 like this:
+```sh
+pip3 install -e git+https://github.com/stefdoerr/utilities#egg=stefanutils
+```
+
+But I highly suggest learning how to use `(mini/ana)conda` which is a package and environment manager for python.
+If you use `conda` follow these instructions:
+
 Install anaconda for python from here: https://conda.io/miniconda.html
 
 Create a conda environment for the utilities:
