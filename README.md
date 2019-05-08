@@ -5,13 +5,13 @@ Install anaconda for python from here: https://conda.io/miniconda.html
 
 Create a conda environment for the utilities:
 ```sh
-conda create -n mdutilities
+conda create -n mdutilities pip python=3.6.6
 conda activate mdutilities
 ```
 
 Install this repository:
 ```sh
-pip install -e git+https://github.com/stefdoerr/utilities
+pip install -e git+https://github.com/stefdoerr/utilities#egg=stefanutils
 ```
 
 # Usage
