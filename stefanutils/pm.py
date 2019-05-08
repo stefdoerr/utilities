@@ -1,11 +1,8 @@
-#!/home/stefan/Software/miniconda3/bin/python 
-
 import os
 from peewee import SqliteDatabase, Model, CharField
 import datetime
 
-dbloc = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'projects.db')
-db = SqliteDatabase(dbloc)
+db = SqliteDatabase(os.path.join(os.path.expanduser('~'), '.projectmanager.db'))
 
 class BaseModel(Model):
     class Meta:
@@ -64,10 +61,8 @@ def goto(projname, mode):
     if mode == 'remote':
         print('-t {}'.format(row.remote_path))
 
-if  __name__ == '__main__':
+def getArgumentParser():
     import argparse
-    import sys
-
     parser = argparse.ArgumentParser(description='Stefan\'s project manager')
     subparsers = parser.add_subparsers(metavar='{send,retrieve,add,list,init}', help='sub-command help', dest='subparser')
 
@@ -90,8 +85,10 @@ if  __name__ == '__main__':
 
     parser_gotor = subparsers.add_parser('gotor', help=argparse.SUPPRESS, description='DONTUSE: Changes to remote directory. Use this only with the pmgotor shell command in the bashrc.')
     parser_gotor.add_argument('projectname', type=str, help='The name of the project')
+    return parser
 
-    arguments = sys.argv[1:] if len(sys.argv) > 1 else ['-h']
+def main(arguments=None):
+    parser = getArgumentParser()
     args = parser.parse_args(args=arguments)
 
     if args.subparser == 'send':
@@ -108,6 +105,14 @@ if  __name__ == '__main__':
         goto(args.projectname, mode='local')
     elif args.subparser == 'gotor':
         goto(args.projectname, mode='remote')
+
+if  __name__ == '__main__':
+    import sys
+    arguments = sys.argv[1:] if len(sys.argv) > 1 else ['-h']
+    main(arguments)
+
+
+
 
 
 
