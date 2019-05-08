@@ -1,4 +1,4 @@
-A collection of utility scripts for typical MD stuff to easy my life.
+A collection of utility scripts for typical MD stuff to ease my life.
 
 # Install
 Install anaconda for python from here: https://conda.io/miniconda.html
