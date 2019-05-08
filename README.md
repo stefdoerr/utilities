@@ -9,20 +9,9 @@ conda create -n mdutilities
 conda activate mdutilities
 ```
 
-Install the requirements into the environment:
+Install this repository:
 ```sh
-conda install moleculekit natsort -c acellera
-pip install peewee
-```
-
-Then go to a directory you want i.e. `/home/user/` and clone this repository with: 
-```sh
-git clone https://github.com/stefdoerr/utilities.git .
-```
-
-And add it to your PATH in the `~/.bashrc` file like:
-```sh
-echo 'PATH=/home/user/utilities/:$PATH' >> ~/.bashrc
+pip install -e git+https://github.com/stefdoerr/utilities
 ```
 
 # Usage
