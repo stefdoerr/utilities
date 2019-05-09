@@ -23,11 +23,18 @@ def init():
 def add_project(name, local_path, remote_path):
     Projects.create(name=name, local_path=local_path, remote_path=remote_path)
 
+def delete_project(name):
+    inp = input('!!! Are you sure you want to delete project "{}"? !!! [Y/n]'.format(name))
+    if inp.lower() != 'y':
+        return
+    Projects.delete().where(Projects.name == name).execute()
+    print('Deleted project {}'.format(name))
+
 def sync(projname, mode):
     row = Projects.get(Projects.name == projname)
     if mode == 'send':
         inp = input('Are you sure you want to send files? This might overwrite remote results! [Y/n]')
-        if inp.lower() == 'n':
+        if inp.lower() != 'y':
             return
         command = 'rsync -rav --info=progress2 {} {}'.format(row.local_path, row.remote_path)
         print(command)
@@ -72,10 +79,13 @@ def getArgumentParser():
     parser_retr = subparsers.add_parser('retrieve', help='Retrieve data from remote')
     parser_retr.add_argument('projectname', type=str, help='The name of the project')
 
-    parser_add = subparsers.add_parser('add', help='Add project to database')
+    parser_add = subparsers.add_parser('add', help='Add a project to the database')
     parser_add.add_argument('projectname', type=str, help='The name of the project')
     parser_add.add_argument('localpath', type=str, help='The local path of the project')
     parser_add.add_argument('remotepath', type=str, help='The remote path of the project')
+
+    parser_remove = subparsers.add_parser('remove', help='Remove a project from the database')
+    parser_remove.add_argument('projectname', type=str, help='The name of the project')
 
     parser_list = subparsers.add_parser('list', help='List all projects')
     parser_init = subparsers.add_parser('init', help='Initialize DB')
@@ -97,6 +107,8 @@ def main(arguments=None):
         sync(args.projectname, 'retrieve')
     elif args.subparser == 'add':
         add_project(args.projectname, args.localpath, args.remotepath)
+    elif args.subparser == 'remove':
+        delete_project(args.projectname)
     elif args.subparser == 'list':
         list_projects()
     elif args.subparser == 'init':
