@@ -24,7 +24,7 @@ def add_project(name, local_path, remote_path):
     Projects.create(name=name, local_path=local_path, remote_path=remote_path)
 
 def delete_project(name):
-    inp = input('!!! Are you sure you want to delete project "{}"? !!! [Y/n]'.format(name))
+    inp = input('!!! Are you sure you want to delete project "{}"? !!! [y/N] '.format(name))
     if inp.lower() != 'y':
         return
     Projects.delete().where(Projects.name == name).execute()
@@ -33,7 +33,7 @@ def delete_project(name):
 def sync(projname, mode):
     row = Projects.get(Projects.name == projname)
     if mode == 'send':
-        inp = input('Are you sure you want to send files? This might overwrite remote results! [Y/n]')
+        inp = input('Are you sure you want to send files? This might overwrite remote results! [y/N] ')
         if inp.lower() != 'y':
             return
         command = 'rsync -rav --info=progress2 {} {}'.format(row.local_path, row.remote_path)

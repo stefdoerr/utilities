@@ -8,7 +8,7 @@ if __name__ == '__main__':
 
     setuptools.setup(
         name='stefanutils',
-        version='0.0.1',
+        version='0.0.2',
         author='Stefan',
         author_email='stefdoerr@gmail.com',
         description='My utilities',

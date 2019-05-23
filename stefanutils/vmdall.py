@@ -14,6 +14,7 @@ def getArgumentParser():
     parser = argparse.ArgumentParser(description='Stefan\'s VMD viewer')
     parser.add_argument('-d', type=int, dest='maxdepth', default=2, help='Max depth of trajectory search')
     parser.add_argument('-nf', action='store_true', help='If used it will disable water filtering')
+    parser.add_argument('-nw', action='store_true', help='If used it will wrapping')
     parser.add_argument('-li', type=str, default='', help='Atomselection for licorice representations')
     return parser
     
@@ -83,6 +84,8 @@ def main(arguments=None):
 
         if not args.nf:
             mol.filter('not water')
+        if not args.nw:
+            mol.wrap('protein')
         mol.viewname = folder
         mol.view(style='NewCartoon', sel='protein', hold=True)
         mol.view(style='Lines', sel='not protein and not water', hold=True)
