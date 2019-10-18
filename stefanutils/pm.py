@@ -36,11 +36,11 @@ def sync(projname, mode):
         inp = input('Are you sure you want to send files? This might overwrite remote results! [y/N] ')
         if inp.lower() != 'y':
             return
-        command = 'rsync -rav --no-perms --info=progress2 {} {}'.format(row.local_path, row.remote_path)
+        command = 'rsync -rav --no-times --no-perms --info=progress2 {} {}'.format(row.local_path, row.remote_path)
         print(command)
         os.system(command)
     elif mode == 'retrieve':
-        command = 'rsync -rav --no-perms --info=progress2 {} {}'.format(row.remote_path, row.local_path)
+        command = 'rsync -rav --no-times --no-perms --info=progress2 {} {}'.format(row.remote_path, row.local_path)
         print(command)
         os.system(command)
         
